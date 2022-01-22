@@ -1,0 +1,129 @@
+.model small
+.stack 100h
+.data
+msg db 10d,13d,"********MENU********$"
+msg1 db "Press 1 for Addition(+)$"
+msg2 db "Press 2 for Subtraction(-)$"
+msg3 db "Press 3 for Multiplication(*)$"
+msg4 db "Press 4 for Square of number(n^n)$"
+msg5 db "Press 5 for Cube of number(n^n^n)$"
+msg6 db "Enter your choice:$"
+.code
+extrn addition:far
+extrn subtraction:far
+extrn multiply:far
+extrn square:far
+extrn cube:far
+mov ax,@data
+mov ds,ax
+
+main:
+    mov ah,09
+    mov dx,offset msg
+    int 21h
+
+    mov dx,10
+    mov ah,02
+    int 21h
+
+    mov ah,09
+    mov dx,offset msg1
+    int 21h
+
+    mov dx,10
+    mov ah,02
+    int 21h
+
+    mov ah,09
+    mov dx,offset msg2
+    int 21h
+
+    mov dx,10
+    mov ah,02
+    int 21h
+
+    mov ah,09
+    mov dx,offset msg3
+    int 21h
+
+    mov dx,10
+    mov ah,02
+    int 21h
+
+     
+    mov ah,09
+    mov dx,offset msg4
+    int 21h
+
+    mov dx,10
+    mov ah,02
+    int 21h
+
+     
+    mov ah,09
+    mov dx,offset msg5
+    int 21h
+
+
+    mov dx,10
+    mov ah,02
+    int 21h
+     
+    mov ah,09
+    mov dx,offset msg6
+    int 21h
+
+    mov ah,01h
+    int 21h
+
+    cmp al,'1'
+    je case1
+    cmp al,'2'
+    je case2
+    cmp al,'3'
+    je case3
+    cmp al,'4'
+    je case4
+    cmp al,'5'
+    je case5
+    jmp exit
+case1:
+    mov dx,10
+    mov ah,02
+    int 21h
+
+    CALL addition
+    jmp main
+case2:
+    mov dx,10
+    mov ah,02
+    int 21h
+    
+    CALL subtraction
+    jmp main
+case3:
+    mov dx,10
+    mov ah,02
+    int 21h
+    
+    CALL multiply
+    jmp main
+case4:
+    mov dx,10
+    mov ah,02
+    int 21h
+    
+    CALL square
+    jmp main
+case5:
+    mov dx,10
+    mov ah,02
+    int 21h
+    
+    CALL cube
+    jmp main
+
+exit:
+    mov ah,4ch
+    int 21h
+    end

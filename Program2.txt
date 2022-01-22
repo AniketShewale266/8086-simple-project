@@ -1,0 +1,225 @@
+.model small
+.data
+n1 db "Enter first number:$"
+n2 db "Enter second number:$"
+n3 db 10d,"Addition is:$"
+n4 db 10d,"Subtraction is:$"
+n5 db 10d,"Multiplication is:$"
+p1 db ?
+p2 db ?
+user db "Enter any number:$"
+sqr db 10d,"Square of number is:$"
+s1 db ?
+s2 db ?
+cub db 10d,"Cube of number is:$"
+c1 db ?
+c2 db ?
+c3 db ?
+c4 db ?
+.code
+public addition,subtraction,multiply,square,cube
+
+
+addition PROC
+mov ax,@data
+mov ds,ax
+
+mov ah,09h
+mov dx,offset n1
+int 21h
+
+mov ah,1
+int 21h
+mov bl,al
+
+mov dx,10
+mov ah,02
+int 21h
+
+
+mov ah,09h
+mov dx,offset n2
+int 21h
+
+mov ah,1
+int 21h
+
+
+mov ah,9
+mov dx,offset n3
+int 21h
+add bl,al
+sub bl,48
+mov dl,bl
+mov ah,2
+int 21h
+RET
+addition ENDP
+
+mov dx,10
+mov ah,02
+int 21h
+
+;for subtraction
+subtraction PROC
+mov ax,@data
+mov ds,ax
+
+mov ah,09h
+mov dx,offset n1
+int 21h
+
+mov ah,1
+int 21h
+mov bl,al
+
+mov dx,10
+mov ah,02
+int 21h
+
+
+mov ah,09h
+mov dx,offset n2
+int 21h
+
+mov ah,1
+int 21h
+
+
+
+mov ah,9
+mov dx,offset n4
+int 21h
+sub bl,al
+add bl,48
+mov dl,bl
+mov ah,2
+int 21h
+RET
+subtraction ENDP
+
+
+mov dx,10
+mov ah,02
+int 21h
+
+;for multiplication
+multiply PROC
+mov ah,09h
+mov dx,offset n1
+int 21h
+
+mov ah,1
+int 21h
+sub al,30h
+mov p1,al
+
+mov dx,10
+mov ah,02
+int 21h
+
+
+mov ah,09h
+mov dx,offset n2
+int 21h
+
+mov ah,1
+int 21h
+sub al,30h
+mov p2,al
+
+
+
+mov ah,09h
+mov dx,offset n5
+int 21h
+
+mul p1
+AAM
+mov ch,ah
+mov cl,al
+
+mov dl,ch
+add dl,48
+mov ah,2
+int 21h
+
+mov dl,cl
+add dl,48
+mov ah,2
+int 21h
+RET
+multiply ENDP
+
+;for square
+square PROC
+mov ah,09h
+mov dx,offset user
+int 21h
+
+mov ah,01
+int 21h
+sub al,30h
+mov s1,al
+mov s2,al
+mul s2
+
+mov ah,09h
+mov dx,offset sqr
+int 21h
+
+AAM
+mov ch,ah
+mov cl,al
+
+mov dl,ch
+add dl,48
+mov ah,2
+int 21h
+
+mov dl,cl
+add dl,48
+mov ah,2
+int 21h
+RET
+square ENDP
+
+;for cube
+cube PROC
+mov ah,09h
+mov dx,offset user
+int 21h
+
+mov ah,01
+int 21h
+sub al,30h
+mov c1,al
+mov c2,al
+mov c3,al
+mul c2
+mul c3
+
+mov ah,09h
+mov dx,offset cub
+int 21h
+
+AAM
+mov ch,ah
+mov cl,al
+
+mov dl,ch
+add dl,48
+mov ah,2
+int 21h
+
+mov dl,cl
+add dl,48
+mov ah,2
+int 21h
+RET
+cube ENDP
+
+END
+
+
+
